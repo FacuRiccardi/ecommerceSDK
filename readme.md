@@ -58,4 +58,7 @@ Funcionalidades:
         productId: dato tipo String
     **
     Esta funcion elimina un producto(productId) de la WishList
+    
+    
+    (Las funciones con **, necesitan que un usuario se haya identificado previamente para funcionar)
 
