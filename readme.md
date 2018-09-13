@@ -11,6 +11,8 @@ Como importarlo a mi proyecto:
         <script src="ecommerceSDK.js"></script>
     Recuerda cambiar la ruta a la ruta actual en donde se aloja ecommerceSDK.js
         
+Como usarlo:
+    ecommerce.nombreDeLaFuncion(parametros)
 
 Funcionalidades:
 
