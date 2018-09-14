@@ -79,14 +79,14 @@ var ecommerce = (function() {
 			apiCall('GET', '/whishlist', null, null, callback);
 		},
 
-		addItemToWishList: function(productId, callback) {
+		addProductToWishList: function(productId, callback) {
 			var data = {
 				productId: productId
 			};
 			apiCall('POST', '/whishlist', null, data, callback);
 		},
 
-		deleteItemFromWishList: function(productId, callback) {
+		deleteProductFromWishList: function(productId, callback) {
 			var urlAux = '/whishlist/' + productId;
 			apiCall('DELETE', urlAux, null, null, callback);
 		}
