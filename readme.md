@@ -1,66 +1,75 @@
-SDK para la API http://ecommerce.casu-net.com.ar/apidoc/
+# SDK para la API http://ecommerce.casu-net.com.ar/apidoc/
 
-Recursos:
-    Es necesario jQuery para que este sdk funcione.
+### Recursos:
+Es necesario **jQuery** para que este sdk funcione.
 
-Instalacion:
-    Descarga el proyecto y copia el archivo ecommerceSDK.js dentro de la carpeta de recursos JavaScript en tu proyecto
+### Instalacion:
+Descarga el proyecto y copia el archivo _ecommerceSDK.js_ dentro de la carpeta de recursos JavaScript en tu proyecto
 
-Como importarlo a mi proyecto:
-    Linkealo en tu html como a cualquier otro archivo .js como te muestro a continuacion:
-        <script src="ecommerceSDK.js"></script>
-    Recuerda cambiar la ruta a la ruta actual en donde se aloja ecommerceSDK.js
+### Como importarlo a mi proyecto:
+Linkealo en tu html como a cualquier otro archivo .js como te muestro a continuacion:
+`<script src="ecommerceSDK.js"></script>`
+**Recuerda cambiar la ruta a la ruta actual en donde se aloja ecommerceSDK.js**
         
-Como usarlo:
-    ecommerce.nombreDeLaFuncion(parametros)
+### Como usarlo:
+El proyecto se desarrollo como una closure, entonces se la usa de la siguiente manera
+`ecommerce.nombreDeLaFuncion(parametros, callback)`
+Toda las funciones vienen con un parametro de callback, que sera una `funcion(parametro)` que se ejecutara cuando la api devuelva la respuesta, _parametro_ es el body del response en caso de que la request haya sucecido correctamente, o un JSON con los datos del error en caso de que haya algun fallo
 
-Funcionalidades:
+### Funcionalidades:
+#### registerUser(email, password, firstname, lastname, callback)
+Se creara un usuario con los datos brindados. El body del callback seria un JSON con los datos del usuario
 
-    registrarUsuario(email, password, firstname, lastname)
-        email: dato tipo String
-        password: dato tipo String
-        firstname: dato tipo String
-        lastname: dato tipo String
-    Esta funcion crea un usuario, con los respectivos datos
+**email** : string,
+**password** : string,
+**firstname** : string,
+**lastname** : string
 
-    authenticateUser(email, password)
-        email: dato tipo String
-        password: dato tipo String
-    Esta funcion identifica a un usuario, y guarda en el local storage una token, llamada 'token'
 
-    getProducts()
-    Esta funcion devuelve la lista de productos disponibles, en forma de array de objetos
+#### authenticateUser(email, password, callback)
+Se creara un token para la sesion del usuario y se guarda en una variable local de la closure. El body del callback seria un JSON con el token.
 
-    getCart()
-    **
-    Esta funcion devuelve el carrito del usuario identificado actualmente
+**email**: string,
+**password**: string
 
-    addProductToCart(productId, qty)
-        productId: dato tipo String
-        qty: dato tipo Integer
-    **
-    Esta funcion añade el producto(productId) al carrito. La cantidad(qty), es añadida a la cantidad actual si es que el producto ya existia o es seteada si no
 
-    deleteProductFromCart(productId, all)
-        productId: dato tipo String
-        all: 1
-    **
-    Esta funcion borra un producto(productId) del carrito. Si no se especifica 'all', decresera la cantidad de ese producto 1 vez, si se especifica, borrara el producto completo.
+#### init(token)
+Si usted ya posee una token, puede inicializarla usando esta funcion, solo esta funcion no tiene un _callback_
 
-    getWishList()
-    **
-    Esta funcion devuelve la WishList del usuario identificado
+**token**: string
 
-    addItemToWishList(productId)
-        productId: dato tipo String
-    **
-    Esta funcion añade un producto(productId) a la WishList
 
-    deleteItemFromWishList(prductId)
-        productId: dato tipo String
-    **
-    Esta funcion elimina un producto(productId) de la WishList
-    
-    
-    (Las funciones con **, necesitan que un usuario se haya identificado previamente para funcionar)
+#### getProducts(callback)
+El body del callback seria un JSON con la lista de los productos
 
+
+#### getCart(callback)
+El body del callback seria un JSON con la lista de productos en el carrito de la sesion actual.
+
+
+#### addProductToCart(idProducto, cantidad, callback)
+Se añade el producto especificado por id, al carrito de la sesion actual, la cantidad de veces que se define. El body del callback seria un JSON con la lista de productos en el carrito de la sesion actual.
+
+**idProducto**: string,
+**cantidad**: integer
+
+
+#### deleteProductFromCart(idProducto, callback, all)
+Se elimina el producto del carrito de la sesion actual. Si _all_ es definido, se borraran todas las existencias del producto del carrito, si no es definido se borrara solo una existencia. El body del callback seria un JSON con la lista de productos en el carrito de la sesion actual.
+
+**idProducto**: string,
+**all**: cualquier tipo de dato (preferentemente `true`)
+
+
+#### getWishList(callback)
+El body del callback seria un JSON con la lista de productos en la Wish List de la sesion actual.
+
+
+#### addProductToWishList(idProducto, callback)
+Se añade el producto especificado por id, a la Wish List de la sesion actual. El body del callback seria un JSON con la lista de productos en la Wish List de la sesion actual.
+
+**idProducto**: string
+
+
+#### deleteProductFromWishList(idProduct, callback)
+Se elimina el producto de la Wish List de la sesion actual. El body del callback seria un JSON con la lista de productos en la Wish List de la sesion actual.
